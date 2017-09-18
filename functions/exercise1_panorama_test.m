@@ -8,9 +8,9 @@ addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent dire
 REFERENCE_VIEW      = 3;
 CAMERAS             = 3;
 
-load( '../debug/part1/points2d.mat'     );
-load( '../debug/part1/norm_mat.mat'     );
-load( '../debug/part1/homographies.mat' );
+load( 'C:/git_repos/comp_photo/debug/part1/points2d.mat'     );
+load( 'C:/git_repos/comp_photo/debug/part1/norm_mat.mat'     );
+load( 'C:/git_repos/comp_photo/debug/part1/homographies.mat' );
 
 %% Test the function det_homographies
 

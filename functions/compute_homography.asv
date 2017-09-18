@@ -33,7 +33,7 @@ alpha = zeros(n, 9);
 beta = zeros(n, 9);
 
 % Get Alpha Vector
-alpha(:,1) = points2(1,1:n);
+alpha(:,1) = points2(1,1:);
 alpha(:,2) = points2(2,:);
 alpha(:,3) = points2(3,:);
 alpha(:,4:6) = zeros(n, 3);

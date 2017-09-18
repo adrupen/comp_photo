@@ -8,7 +8,7 @@ close all                   % Close all figures
 clc                         % Clear the command window
 addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent directory
 
-LOAD_DATA           = true;
+LOAD_DATA           = false;
 REFERENCE_VIEW      = 3;
 CAMERAS             = 3;
 image_names_file    = 'C:/git_repos/comp_photo/images/names_images_kthsmall.txt';
@@ -40,14 +40,7 @@ h = h(1);
 w = w(1);
 homographies(:,:,1) = compute_homography(points2d(1:3,1:w-1,1), points2d(1:3,1:w-1,3));
 homographies(:,:,2) = compute_homography(points2d(1:3,w:end,2), points2d(1:3,w:end,3));
-%homographies(:,:,3) = compute_homography([points2d(1:3,1:w-1,1) points2d(1:3,w:end,2)], points2d(:,:,3));
-
-for c=1:CAMERAS
-    points_ref = points2d(:,:,REFERENCE_VIEW);
-    points_c   = points2d(:,:,c);
-    
-    homographies_test(:,:,c) = compute_homography( points_ref, points_c );
-end
+homographies(:,:,3) = compute_homography([points2d(1:3,1:w-1,1) points2d(1:3,2:end,2)])
 
 
 for c = 1:CAMERAS
