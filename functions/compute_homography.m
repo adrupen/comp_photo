@@ -12,5 +12,13 @@
 
 function H = compute_homography( points1, points2 )
 
+[width height] = size(points1);
+alpha = zeros(9, width/2);
+beta = zeros(9, width/2);
+
+for i = 1:width
+    alpha()
+end
+
 %-------------------------
 % TODO: FILL IN THIS PART
