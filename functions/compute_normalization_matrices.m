@@ -47,11 +47,12 @@ end
 norm_mat = zeros(3,3,cam);
 for c = 1 : cam
     factor = sqrt(2)/d(c);
-    norm_mat(1,1,c) = factor;
-    norm_mat(2,2,c) = factor;
-    norm_mat(3,3,c) = 1;
+    norm_mat(1,1,c) = 1;
+    norm_mat(2,2,c) = 1;
     norm_mat(1,3,c) = -p_mean(1,1,c);
     norm_mat(2,3,c) = -p_mean(2,1,c);
+    norm_mat(:,:,c) = norm_mat(:,:,c).*factor;
+    norm_mat(3,3,c) = 1;
 end
 
 

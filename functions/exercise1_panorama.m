@@ -26,16 +26,24 @@ else
     save( points2d_file, 'points2d' );
 end
 
-
+%% Normalize Points
+points2d_norm = points2d;
+norm_mat = compute_normalization_matrices(points2d);
+for c = 1:CAMERAS
+    points2d_norm(:,:,c) = norm_mat(:,:,c) * points2d(:,:,c);
+end
+% Inverse Reference Normalization Matrix
+N_inv_ref = inv(norm_mat(:,:,REFERENCE_VIEW));
 %% Compute homographies
 % Determine all homographies to a reference view. We have:
 % point in REFERENCE_VIEW = homographies(:,:,c) * point in image c.
 % Remember, you have to set homographies{REFERENCE_VIEW} as well.
+
 homographies = zeros(3,3,CAMERAS); 
 
-points_ref = points2d(:,:,REFERENCE_VIEW);
+points_ref = points2d_norm(:,:,REFERENCE_VIEW);
 for c = 1:CAMERAS
-    homographies(:,:,c) = compute_homography( points_ref, points2d(:,:,c) );
+    homographies(:,:,c) = N_inv_ref * compute_homography( points_ref, points2d_norm(:,:,c) ) * norm_mat(:,:,c);
 end
 
 for c = 1:CAMERAS
