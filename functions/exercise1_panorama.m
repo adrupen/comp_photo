@@ -33,22 +33,10 @@ end
 % Remember, you have to set homographies{REFERENCE_VIEW} as well.
 homographies = zeros(3,3,CAMERAS); 
 
-%-------------------------
-% TODO: FILL IN THIS PART
-[h w] = find(isnan(points2d(:,:,1)))
-h = h(1);
-w = w(1);
-homographies(:,:,1) = compute_homography(points2d(1:3,1:w-1,1), points2d(1:3,1:w-1,3));
-homographies(:,:,2) = compute_homography(points2d(1:3,w:end,2), points2d(1:3,w:end,3));
-%homographies(:,:,3) = compute_homography([points2d(1:3,1:w-1,1) points2d(1:3,w:end,2)], points2d(:,:,3));
-
-for c=1:CAMERAS
-    points_ref = points2d(:,:,REFERENCE_VIEW);
-    points_c   = points2d(:,:,c);
-    
-    homographies_test(:,:,c) = compute_homography( points_ref, points_c );
+points_ref = points2d(:,:,REFERENCE_VIEW);
+for c = 1:CAMERAS
+    homographies(:,:,c) = compute_homography( points_ref, points2d(:,:,c) );
 end
-
 
 for c = 1:CAMERAS
     

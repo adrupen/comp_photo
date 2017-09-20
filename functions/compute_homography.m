@@ -12,43 +12,16 @@
 
 function H = compute_homography( points1, points2 )
 
-points1
-points2
-% points1 = a
-% points2 = b / ref
-[h1 w1] = find(isnan(points1(:,:)));
-[h2 w2] = find(isnan(points2(:,:)));
+[h w] = size(points1);
+alpha = [];
+beta = [];
 
-if isempty(w1) && isempty(w2)
-    n = max(w1(1),w2(1))-1;
-elseif isempty(w1)
-    n = w2(1)-1;
-elseif isempty(w2)
-    n = w1(1)-1;
-else
-    n = 0;
+for i = 1:w
+    if not(isnan(points1(1,i)) || isnan(points2(1,i)))
+        alpha(i,:) = [points2(1,i) points2(2,i) points2(3,i) zeros(1,3) -1.*points2(1,i).*points1(1,i) -1.*points2(2,i).*points1(1,i) -1.*points1(1,i)];
+        beta(i,:) = [zeros(1,3) points2(1,i) points2(2,i) points2(3,i) -1.*points2(1,i).*points1(2,i) -1.*points2(2,i).*points1(2,i) -1.*points1(2,i)];
+    end
 end
-
-alpha = zeros(n, 9);
-beta = zeros(n, 9);
-
-% Get Alpha Vector
-alpha(:,1) = points2(1,1:n);
-alpha(:,2) = points2(2,:);
-alpha(:,3) = points2(3,:);
-alpha(:,4:6) = zeros(n, 3);
-alpha(:,7) = -1.*points2(1,1:n).*points1(1,1:n);
-alpha(:,8) = -1.*points2(2,1:n).*points1(1,1:n);
-alpha(:,9) = -1.*points1(1,1:n);
-
-% Get Beta Vector
-beta(:,1:3) = zeros(n, 3);
-beta(:,4) = points2(1,1:n);
-beta(:,5) = points2(2,1:n);
-beta(:,6) = points2(3,1:n);
-beta(:,7) = -1.*points2(1,1:n).*points1(2,1:n);
-beta(:,8) = -1.*points2(2,1:n).*points1(2,1:n);
-beta(:,9) = -1.*points1(2,1:n);
 
 Q = vertcat(alpha, beta);
 
