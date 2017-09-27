@@ -43,6 +43,7 @@ homographies = zeros(3,3,CAMERAS);
 
 points_ref = points2d_norm(:,:,REFERENCE_VIEW);
 for c = 1:CAMERAS
+    %homographies(:,:,c) = compute_homography(points2d(:,:,REFERENCE_VIEW), points2d(:,:,c));
     homographies(:,:,c) = N_inv_ref * compute_homography( points_ref, points2d_norm(:,:,c) ) * norm_mat(:,:,c);
 end
 
