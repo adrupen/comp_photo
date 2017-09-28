@@ -28,7 +28,7 @@ function [cams, cam_centers] = reconstruct_stereo_cameras( E, K, points2d )
 %%
 [U, S, V] = svd(E);
 t = V(:,end);
-
+t = -t;
 cams = zeros(3,4,2);
 
 cams(:,:,1) = K(:,:,1)*[eye(3,3), zeros(3,1)];
@@ -55,44 +55,49 @@ M_eval(:,:,3) = K(:,:,2)*R(:,:,2)*[eye(3,3), t];
 M_eval(:,:,4) = K(:,:,2)*R(:,:,2)*[eye(3,3), -t];
 
 point3d = zeros(4,4);
+% Find 3D points for all 4 cases
 for p = 1 : 4
     cams(:,:,2) = M_eval(:,:,p);
     point3d(:,p) = reconstruct_point_cloud(cams, points2d);
 end
 
-if not(point3d(3,1) < 0)
-    test_point = (R(:,:,1)*[eye(3,3), t]*point3d(:,1));
-    if not(test_point(3) < 0)
-        cams(:,:,2) = M_eval(:,:,1);
-    end
+point_in_m1 = [eye(3,3), zeros(3,1)]*point3d(:,1);
+point_in_m2 = R(:,:,1)*[eye(3,3), t]*point3d(:,1);
+
+if not(point_in_m1(3,1) < 0) && not(point_in_m2(3,1) < 0)
+    "first"
+    cams(:,:,2) = M_eval(:,:,1);
 end
-if not(point3d(3,2) < 0)
-    test_point = (R(:,:,1)*[eye(3,3), -t]*point3d(:,2));
-    if not(test_point(3) < 0)
-        cams(:,:,2) = M_eval(:,:,2);
-        t = -t;
-    end
+
+point_in_m1 = [eye(3,3), zeros(3,1)]*point3d(:,2);
+point_in_m2 = R(:,:,1)*[eye(3,3), -t]*point3d(:,2);
+
+if not(point_in_m1(3,1) < 0) && not(point_in_m2(3,1) < 0)
+    "second"
+    cams(:,:,2) = M_eval(:,:,2);
 end
-if not(point3d(3,3) < 0)
-    test_point = (R(:,:,2)*[eye(3,3), t]*point3d(:,3));
-    if not(test_point(3) < 0)
-        cams(:,:,2) = M_eval(:,:,3);
-    end
+
+point_in_m1 = [eye(3,3), zeros(3,1)]*point3d(:,3);
+point_in_m2 = R(:,:,2)*[eye(3,3), t]*point3d(:,3);
+
+if not(point_in_m1(3,1) < 0) && not(point_in_m2(3,1) < 0)
+    "third"
+    cams(:,:,2) = M_eval(:,:,3);
 end
-if not(point3d(3,4) < 0)
-    test_point = (R(:,:,2)*[eye(3,3), -t]*point3d(:,4));
-    if not(test_point(3) < 0)
-        cams(:,:,2) = M_eval(:,:,4);
-        t = -t;
-    end
+
+point_in_m1 = [eye(3,3), zeros(3,1)]*point3d(:,4);
+point_in_m2 = R(:,:,2)*[eye(3,3), -t]*point3d(:,4);
+
+if not(point_in_m1(3,1) < 0) && not(point_in_m2(3,1) < 0)
+    "fourth"
+    cams(:,:,2) = M_eval(:,:,4);
 end
 
 E_test = R(:,:,1) * [0, -t(3), t(2);
                      t(3), 0, -t(1);
                      -t(2), t(1), 0];
 scalar = E./E_test;
-
-cam_centers = [zeros(3,1), -t; 1, 1];
+cam_centers = [zeros(3,1), t; 1, 1];
 
 
 

@@ -30,7 +30,7 @@ for p = 1 : n
          points2d(2,p,2).*cameras(3,1,2)-cameras(2,1,2), points2d(2,p,2).*cameras(3,2,2)-cameras(2,2,2), points2d(2,p,2).*cameras(3,3,2)-cameras(2,3,2), points2d(2,p,2).*cameras(3,4,2)-cameras(2,4,2)
     ];
     [~, ~, V] = svd(W);
-    norm_factor = 1/V(end,end);
+    %norm_factor = 1/V(end,end);
     points3d(:,p) = V(:,end);%.*norm_factor;
 end
 
