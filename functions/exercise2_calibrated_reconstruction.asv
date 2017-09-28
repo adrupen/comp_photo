@@ -20,7 +20,7 @@ REAL_DATA_LOAD      = 3;    % Choose this to load real data.
 VERSION             = SYNTHETIC_DATA;
 
 if VERSION == SYNTHETIC_DATA
-    points2d_file = 'C://data/data_sphere.mat';
+    points2d_file = 'C:/git_repos/comp_photo/data/data_sphere.mat';
 else
     points2d_file = '../data/data_teapot.mat';
 end
@@ -79,8 +79,8 @@ points3d = reconstruct_point_cloud( cameras, points2d );
 % Check the reprojection error:
 [error_average error_max] = check_reprojection_error( points2d, cameras, points3d );
 fprintf( '\n\nThe reprojection error is: \n' );
-fprintf( 'Average error: %5.2fpixel; Maximum error: %5.2fpixel \n', error_average, error_max );
-
+fprintf( 'Average error: %5.2fpixel', error_average, error_max );
+fprintf( 'Maximum error: %5.2fpixel', error_max  );
 
 % Rotate to a coordinate system that suits MATLAB's visualization:
 R = [0 0 -1 0;

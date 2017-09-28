@@ -79,8 +79,8 @@ points3d = reconstruct_point_cloud( cameras, points2d );
 % Check the reprojection error:
 [error_average error_max] = check_reprojection_error( points2d, cameras, points3d );
 fprintf( '\n\nThe reprojection error is: \n' );
-fprintf( 'Average error: %5.2fpixel; Maximum error: %5.2fpixel \n', error_average, error_max );
-
+fprintf( 'Average error: %5.2fpixel', error_average );
+fprintf( '\nMaximum error: %5.2fpixel \n', error_max  );
 
 % Rotate to a coordinate system that suits MATLAB's visualization:
 R = [0 0 -1 0;

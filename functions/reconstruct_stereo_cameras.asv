@@ -70,7 +70,6 @@ if not(point3d(3,2) < 0)
     test_point = (R(:,:,1)*[eye(3,3), -t]*point3d(:,2));
     if not(test_point(3) < 0)
         cams(:,:,2) = M_eval(:,:,2);
-        t = -t;
     end
 end
 if not(point3d(3,3) < 0)
@@ -83,16 +82,14 @@ if not(point3d(3,4) < 0)
     test_point = (R(:,:,2)*[eye(3,3), -t]*point3d(:,4));
     if not(test_point(3) < 0)
         cams(:,:,2) = M_eval(:,:,4);
-        t = -t;
     end
 end
 
 E_test = R(:,:,1) * [0, -t(3), t(2);
                      t(3), 0, -t(1);
-                     -t(2), t(1), 0];
-scalar = E./E_test;
+                     -t(2), t(1), 0]
 
-cam_centers = [zeros(3,1), -t; 1, 1];
+cam_centers = [zeros(,1), t];
 
 
 
