@@ -17,7 +17,7 @@ function handle = draw_textured_triangle( points3d, points2d, img, textureSize )
 
 [H,W,CHANNELS] = size( img );
 
-outputPoints = [1 W 1;
+outputPoints = [1 W W;
                 H H 1];
             
 tform = maketform( 'affine', points2d', outputPoints' );

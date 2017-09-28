@@ -30,8 +30,7 @@ counter = 0;
 
 for c = 1 : cams
     for i = 1 : n
-        diff = points2d(:,i,c) - (cameras(:,:,c)*points3d(:,i));
-        diff = homogeneous_to_cartesian(diff);
+        diff = homogeneous_to_cartesian(points2d(:,i,c)) - homogeneous_to_cartesian(cameras(:,:,c)*points3d(:,i));
         error = sqrt((diff(1)^2) + (diff(2)^2));
         
         error_average = error_average + error;

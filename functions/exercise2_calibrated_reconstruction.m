@@ -17,12 +17,12 @@ image_names_file    = 'names_images_teapot.txt';
 SYNTHETIC_DATA      = 1;    % Choose this to use the synthetic data.
 REAL_DATA_CLICK     = 2;    % Choose this to measure and save new real data.
 REAL_DATA_LOAD      = 3;    % Choose this to load real data.
-VERSION             = SYNTHETIC_DATA;
+VERSION             = REAL_DATA_LOAD;
 
 if VERSION == SYNTHETIC_DATA
     points2d_file = 'C:/git_repos/comp_photo/data/data_sphere.mat';
 else
-    points2d_file = '../data/data_teapot.mat';
+    points2d_file = 'C:/git_repos/comp_photo/data/data_teapot.mat';
 end
 
 %% The internal camera parameters
