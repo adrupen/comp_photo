@@ -45,7 +45,7 @@ grid on
 % ------------------------
 % TODO: FILL IN THIS PART
 
-TRI = delaunayTriangulation(X', Y', Z);
+TRI = delaunay(X, Y, Z);
 figure(2)
 hold on
 trisurf(TRI, X, Y, Z);
@@ -53,11 +53,10 @@ view(126,20)
 axis equal
 axis vis3d
 
+TRI 
 if not(isempty(texture))
     figure(3)
     hold on
-    TRI
-    size(TRI)
     draw_textured_triangles(TRI, X, Y, Z, points2d_cartesian(1,:), points2d_cartesian(2,:), texture, 32)
 end
 
