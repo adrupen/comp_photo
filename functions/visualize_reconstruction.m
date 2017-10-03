@@ -33,6 +33,7 @@ camy = camera_centers_cartesian(2,:);
 camz = camera_centers_cartesian(3,:);
 
 % Draw points and camera centers:
+
 figure(1)
 hold on
 plot3( X, Y, Z, '.');
@@ -44,8 +45,10 @@ grid on
 
 % ------------------------
 % TODO: FILL IN THIS PART
+x_2d = points2d_reference(1,:);
+y_2d = points2d_reference(2,:);
 
-TRI = delaunay(X, Y);
+TRI = delaunay(x_2d, y_2d);
 figure(2)
 hold on
 trisurf(TRI, X, Y, Z, 'Facecolor', 'green');
@@ -56,7 +59,7 @@ axis vis3d
 if not(isempty(texture))
     figure(3)
     hold on
-    draw_textured_triangles(TRI, X, Y, Z, points2d_cartesian(1,:), points2d_cartesian(2,:), texture, 32)
+    draw_textured_triangles(TRI, X, Y, Z, y_2d, x_2d, texture, 32)
 end
 
 end
