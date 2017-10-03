@@ -18,4 +18,43 @@ function F = compute_F_matrix( points2d )
 
 
 %------------------------------
-% TODO: FILL IN THIS PART
+%% TODO: FILL IN THIS PART
+
+[h, w, cameras] = size(points2d);
+
+points2d_norm = zeros(h, w, cameras);
+
+N = compute_normalization_matrices(points2d);
+points2d_norm(:,:,1) = N(:,:,1) * points2d(:,:,1);
+points2d_norm(:,:,2) = N(:,:,2) * points2d(:,:,2);
+
+Y = zeros(w,9);
+
+Y(:,1) = points2d_norm(1,:,2) .* points2d_norm(1,:,1);
+Y(:,2) = points2d_norm(1,:,2) .* points2d_norm(2,:,1);
+Y(:,3) = points2d_norm(1,:,2);
+
+Y(:,4) = points2d_norm(2,:,2) .* points2d_norm(1,:,1);
+Y(:,5) = points2d_norm(2,:,2) .* points2d_norm(2,:,1);
+Y(:,6) = points2d_norm(2,:,2);
+
+Y(:,7) = points2d_norm(1,:,1);
+Y(:,8) = points2d_norm(2,:,1);
+Y(:,9) = 1;
+
+[~, ~, V] = svd(Y);
+
+E = zeros(3,3);
+E(1,:) = V(1:3, end);
+E(2,:) = V(4:6, end);
+E(3,:) = V(7:9, end);
+
+F = N(:,:,2)' * E * N(:,:,1);
+
+[U, S, V] = svd(F);
+
+S(end, end) = 0;
+
+F = U*S*V';
+
+

@@ -8,13 +8,13 @@ addpath( genpath( '../' ) );% Add paths to all subdirectories of the parent dire
 REFERENCE_VIEW      = 1;
 CAMERAS             = 2;
 
-load( '../debug/part3/points2d.mat'              );
-load( '../debug/part3/F.mat'                     );
-load( '../debug/part3/cameras.mat'               );
-load( '../debug/part3/camera_centers.mat'        );
-load( '../debug/part3/H.mat'                     );
-load( '../debug/part3/points3d_few.mat'          );
-load( '../debug/part3/points3d_ground_truth.mat' );
+load( 'C:/git_repos/comp_photo/debug/part3/points2d.mat'              );
+load( 'C:/git_repos/comp_photo/debug/part3/F.mat'                     );
+load( 'C:/git_repos/comp_photo/debug/part3/cameras.mat'               );
+load( 'C:/git_repos/comp_photo/debug/part3/camera_centers.mat'        );
+load( 'C:/git_repos/comp_photo/debug/part3/H.mat'                     );
+load( 'C:/git_repos/comp_photo/debug/part3/points3d_few.mat'          );
+load( 'C:/git_repos/comp_photo/debug/part3/points3d_ground_truth.mat' );
 
 %% Test the function compute_F_matrix
 
@@ -35,7 +35,7 @@ fprintf('-----------------------------\n')
 fprintf(' CAMERA RECONSTRUCTION ERROR \n')
 fprintf('-----------------------------\n')
 
-load( '../debug/part3/F.mat' );
+load( 'C:/git_repos/comp_photo/debug/part3/F.mat' );
 
 [cameras_test camera_centers_test] = ...
     reconstruct_uncalibrated_stereo_cameras( F );

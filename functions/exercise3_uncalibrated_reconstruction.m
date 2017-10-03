@@ -24,10 +24,10 @@ REAL_DATA_LOAD      = 3;
 VERSION             = SYNTHETIC_DATA;
 
 if VERSION == SYNTHETIC_DATA
-    points2d_file = '../data/data_sphere.mat';
-    points3d_file = '../data/data_sphere_reconstruction.mat';
+    points2d_file = 'C:/git_repos/comp_photo/data/data_sphere.mat';
+    points3d_file = 'C:/git_repos/comp_photo/data/data_sphere_reconstruction.mat';
 else
-    points2d_file = '../data/data_toyhouse.mat';
+    points2d_file = 'C:/git_repos/comp_photo/data/data_toyhouse.mat';
 end
 
 

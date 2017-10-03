@@ -12,3 +12,14 @@ function H = compute_rectification_matrix( points1, points2 )
 
 %------------------------------
 % TODO: FILL IN THIS PART
+
+[~, n] = size(points1);
+
+W = zeros(3 * n, 16);
+
+p1 = points1;
+p2 = points2;
+
+for i = 1 : n
+    W(1,:) = [p1()]
+end
