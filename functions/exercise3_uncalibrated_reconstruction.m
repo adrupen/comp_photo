@@ -21,7 +21,7 @@ image_names_file    = 'names_images_toyhouse.txt';
 SYNTHETIC_DATA      = 1;
 REAL_DATA_CLICK     = 2;
 REAL_DATA_LOAD      = 3;
-VERSION             = SYNTHETIC_DATA;
+VERSION             = REAL_DATA_LOAD;
 
 if VERSION == SYNTHETIC_DATA
     points2d_file = 'C:/git_repos/comp_photo/data/data_sphere.mat';
@@ -46,8 +46,11 @@ elseif VERSION == REAL_DATA_CLICK
     
 elseif VERSION == REAL_DATA_LOAD
         
-    [images,image_names] = load_images_grey( image_names_file, CAMERAS ); 
+    [images,image_names] = load_images_grey( image_names_file, CAMERAS );
+    load('C:/git_repos/comp_photo/data/first_five.mat');
+    first_five = points2d;
     load( points2d_file );
+    points2d(:,1:5,:) = first_five;
     
 else
     return
@@ -80,7 +83,15 @@ else
     % in order to rectify:
   
     %------------------------------
-    % FILL IN THIS PART 
+    % FILL IN THIS PART
+    indices = [1, 2, 3, 4, 5];
+    unit = sqrt(sum(points3d(:,2) - points3d(:,1).^2))/ 10;
+    
+    points3d_ground_truth(:,1) = [0, 0, 0, 1]';
+    points3d_ground_truth(:,2) = [-10, 0, 0, 1]';
+    points3d_ground_truth(:,3) = [0, 0, 9, 1]';
+    points3d_ground_truth(:,4) = [0, 27, 0, 1]';
+    points3d_ground_truth(:,5) = [-5, 27, 15, 1]';
     
 end
 
@@ -89,9 +100,11 @@ H = compute_rectification_matrix( points3d(:,indices), points3d_ground_truth );
 % Rectify the points:
 
 %------------------------------
-% FILL IN THIS PART 
+% FILL IN THIS PART
 
+camera_centers_rec = H * camera_centers;
+points3d_rec = H * points3d;
 
-visualize_reconstruction( points3d, camera_centers, ...
+visualize_reconstruction( points3d_rec, camera_centers_rec , ...
     points2d( :, :, REFERENCE_VIEW ), images{REFERENCE_VIEW} )
 
