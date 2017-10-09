@@ -101,7 +101,7 @@ H = compute_rectification_matrix( points3d(:,indices), points3d_ground_truth );
 
 %------------------------------
 % FILL IN THIS PART
-
+%H = eye(4);
 camera_centers_rec = H * camera_centers;
 points3d_rec = H * points3d;
 
